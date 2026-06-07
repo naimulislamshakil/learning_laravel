@@ -32,8 +32,6 @@ class ProductController extends Controller
         try{
             
              $product = Product::findOrFail($id);
-
-   
             
             if($product){
                return view('edit_product', compact('product'));
@@ -45,4 +43,25 @@ class ProductController extends Controller
             return redirect('/')->with('error', 'Failed to edit product: ' . $e->getMessage());
         }
     }
+
+    public function update(Request $req, $id)
+{
+    try {
+
+        $product = Product::findOrFail($id);
+
+        $product->name = $req->name;
+        $product->price = $req->price;
+        $product->stock = $req->stock;
+        $product->description = $req->description;
+
+        $product->save();
+
+        return redirect('/')->with('success', 'Product updated successfully');
+
+    } catch (\Exception $e) {
+
+        return redirect('/')->with('error', 'Failed to update product: ' . $e->getMessage());
+    }
+}
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>product Info</title>
+    <title>Edit Product</title>
 
     <style>
         body {
@@ -10,115 +10,78 @@
         }
 
         .container {
-            max-width: 900px;
+            width: 500px;
             margin: 50px auto;
             background: white;
-            display: flex;
-            gap: 30px;
-            padding: 30px;
-            border-radius: 15px;
+            padding: 25px;
+            border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
-        .image-box img {
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input, textarea {
             width: 100%;
-            border-radius: 12px;
-        }
-
-        .image-box {
-            flex: 1;
-        }
-
-        .info-box {
-            flex: 1;
-        }
-
-        h1 {
-            margin-bottom: 10px;
-        }
-
-        .price {
-            font-size: 24px;
-            color: green;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-
-        .desc {
-            color: #555;
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-
-        .active {
-            background: #eafaf1;
-            color: #27ae60;
-        }
-
-        .inactive {
-            background: #fdecea;
-            color: #e74c3c;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 15px;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            text-decoration: none;
-            color: white;
-            margin-top: 10px;
         }
 
-        .edit-btn {
+        button {
+            width: 100%;
+            padding: 12px;
             background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
         }
 
-        .edit-btn:hover {
+        button:hover {
             background: #2980b9;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #555;
         }
     </style>
 </head>
-<body>
 
-  
+<body>
 
 <div class="container">
 
-    
+    <h2>Edit Product</h2>
 
-    <!-- INFO -->
-    <div class="info-box">
+    <form method="POST" action="/products/update/{{ $product->id }}">
+        @csrf
+       
 
-        <span class="badge {{ $product->status ? 'active' : 'inactive' }}">
-            {{ $product->status ? 'Available' : 'Out of Stock' }}
-        </span>
+        <!-- NAME -->
+        <input type="text" name="name" value="{{ $product->name }}" required>
 
-        <h1>{{ $product->name }}</h1>
+        <!-- PRICE -->
+        <input type="text" name="price" value="{{ $product->price }}" required>
 
-        <div class="price">
-            ${{ $product->price }}
-        </div>
+        <!-- STOCK -->
+        <input type="number" name="stock" value="{{ $product->stock }}" required>
 
-        <p class="desc">
-            {{ $product->description }}
-        </p>
+        <!-- DESCRIPTION -->
+        <textarea name="description" rows="4">{{ $product->description }}</textarea>
 
-        <p><b>Stock:</b> {{ $product->stock }}</p>
+        <!-- SUBMIT -->
+        <button type="submit">Update Product</button>
+    </form>
 
-        <!-- EDIT BUTTON -->
-        <a href="{{ url('/product/update/' . $product->id) }}" class="btn edit-btn">
-            Edit product
-        </a>
-
-    </div>
+    <a href="/" class="back">← Back to Products</a>
 
 </div>
 

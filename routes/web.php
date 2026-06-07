@@ -13,4 +13,4 @@ Route::post('/login', [UserController::class, 'login']);
 Route::get("/",[ProductController::class, 'show']);
 Route::delete("/products/delete/{id}",[ProductController::class, 'delete']);
 Route::get("/products/edit/{id}",[ProductController::class, 'edit']);
-Route::post("/products/update/{id}",[ProductController::class, 'update']);
+Route::POST("/products/update/{id}",[ProductController::class, 'update']);
