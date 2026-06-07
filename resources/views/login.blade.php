@@ -41,7 +41,8 @@
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
-            
+                border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         button {
