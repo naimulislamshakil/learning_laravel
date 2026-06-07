@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    //
-    function getUser(){
-        return "Naimul Islam";
-    }
+   function login( Request $req){
+    return $req->all();
+   }
+
+   function showLogin(){
+    return view('login');
+   }
 }
