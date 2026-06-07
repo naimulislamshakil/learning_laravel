@@ -27,4 +27,22 @@ class ProductController extends Controller
       }
         
     }
+
+    function edit($id){
+        try{
+            
+             $product = Product::findOrFail($id);
+
+   
+            
+            if($product){
+               return view('edit_product', compact('product'));
+             }else{
+                return redirect('/')->with('error', 'Product not found');
+             }
+            
+        }catch(\Exception $e){
+            return redirect('/')->with('error', 'Failed to edit product: ' . $e->getMessage());
+        }
+    }
 }
