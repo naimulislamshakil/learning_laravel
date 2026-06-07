@@ -20,6 +20,7 @@ class ProductController extends Controller
         $product=Product::find($id);
         if($product){
             $product->delete();
+               toastr()->success('Product delete successfully');
             return redirect('/')->with('success', 'Product deleted successfully');
         }
       } catch (\Exception $e) {
@@ -56,6 +57,8 @@ class ProductController extends Controller
         $product->description = $req->description;
 
         $product->save();
+
+        toastr()->success('Product updated successfully');
 
         return redirect('/')->with('success', 'Product updated successfully');
 
