@@ -110,6 +110,45 @@
 .btn:hover {
     opacity: 0.9;
 }
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* COMMON BUTTON STYLE */
+.btn {
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+/* EDIT BUTTON */
+.btn.edit {
+    flex: 1;
+    background: #3498db;
+    color: white;
+}
+
+/* DELETE BUTTON */
+.btn.delete {
+    flex: 1;
+    background: #e74c3c;
+    color: white;
+}
+
+.btn.edit:hover {
+    background: #2980b9;
+}
+
+.btn.delete:hover {
+    background: #c0392b;
+}
     </style>
 </head>
 <body>
@@ -119,9 +158,8 @@
 
 <div class="container">
 
-    @foreach ($products as $product)
-        
-            <div class="product-card">
+@foreach($products as $product)
+    <div class="product-card">
 
         <div class="product-image">
             <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->name }}">
@@ -136,23 +174,44 @@
 
             <div class="price-stock">
                 <span class="price">৳ {{ $product->price }}</span>
-                <span class="stock">
-                    Stock: {{ $product->stock }}
-                </span>
+                <span class="stock">Stock: {{ $product->stock }}</span>
             </div>
 
             <span class="status {{ $product->status ? 'active' : 'inactive' }}">
                 {{ $product->status ? 'Available' : 'Out of Stock' }}
             </span>
 
-            <button class="btn">Buy Now</button>
+            <!-- ACTION BUTTONS -->
+            <div class="actions">
+
+                <!-- EDIT BUTTON -->
+                <a href="{{ url('/products/edit/' . $product->id) }}" class="btn edit">
+                    Edit
+                </a>
+
+                <!-- DELETE BUTTON -->
+                <form action="{{ url('/products/delete/' . $product->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="btn delete">
+                        Delete
+                    </button>
+                </form>
+
+            </div>
+
         </div>
 
     </div>
-        
-    @endforeach
+@endforeach
 
 </div>
+
+
+<p class="text-center">
+    {{ $products->count() }} products found.
+</p>
 
 
 

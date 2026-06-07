@@ -13,4 +13,18 @@ class ProductController extends Controller
         return view('product',['products'=>$data]);
      
     }
+
+    function delete($id){
+      try {
+       echo $id;
+        $product=Product::find($id);
+        if($product){
+            $product->delete();
+            return redirect('/')->with('success', 'Product deleted successfully');
+        }
+      } catch (\Exception $e) {
+        return redirect('/')->with('error', 'Failed to delete product: ' . $e->getMessage());
+      }
+        
+    }
 }
